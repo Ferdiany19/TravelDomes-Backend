@@ -6,4 +6,6 @@ import com.traveldomes.src.models.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
     User findByEmail(String email);
+
+    Boolean existsByUsername(String username);
 }

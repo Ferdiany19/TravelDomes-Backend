@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.traveldomes.src.exceptions.EntityFoundException;
 import com.traveldomes.src.models.User;
 import com.traveldomes.src.payloads.req.RegisterRequest;
 import com.traveldomes.src.payloads.res.ResponseHandler;
@@ -26,10 +27,14 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException("Email already Exists");
         }
 
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new EntityFoundException("Username already exists!");
+        }
+
         User user = new User(request.getUsername(), request.getFullname(), request.getEmail(), request.getPassword());
         userRepository.save(user);
 
-        return ResponseHandler.responseData(HttpStatus.CREATED.value(), "User Successfully Registered!", null);
+        return ResponseHandler.responseData(HttpStatus.CREATED.value(), "User Successfully Registered!", user);
     }
 
 }
