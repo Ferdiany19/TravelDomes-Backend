@@ -13,7 +13,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 
 @Component
 public class JwtUtil {
-  private final String JWT_SECRET_KEY = "betesecretkey";
+  private final String JWT_SECRET_KEY = "traveldomesecret";
   private final Long JWT_EXPIRATION_MS = 1 * 60 * 60 * 1000L;
 
   /*
@@ -24,7 +24,7 @@ public class JwtUtil {
       Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET_KEY);
       Instant issuedAt = Instant.now();
       String token = JWT.create()
-          .withIssuer("bete")
+          .withIssuer("traveldomes")
           .withSubject("auth")
           .withIssuedAt(issuedAt)
           .withExpiresAt(issuedAt.plusMillis(JWT_EXPIRATION_MS))
@@ -57,7 +57,7 @@ public class JwtUtil {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET_KEY);
       JWTVerifier verifier = JWT.require(algorithm)
-          .withIssuer("bete")
+          .withIssuer("traveldomes")
           .build();
 
       DecodedJWT decodedJWT = verifier.verify(token);
