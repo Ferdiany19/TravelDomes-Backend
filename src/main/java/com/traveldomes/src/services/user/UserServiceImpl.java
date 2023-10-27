@@ -3,6 +3,7 @@ package com.traveldomes.src.services.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.traveldomes.src.exceptions.EntityFoundException;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public ResponseEntity<?> registerUserService(RegisterRequest request) {
         // cek apakah email sudah terdaftar atau belum
@@ -31,7 +35,8 @@ public class UserServiceImpl implements UserService {
             throw new EntityFoundException("Username already exists!");
         }
 
-        User user = new User(request.getUsername(), request.getFullname(), request.getEmail(), request.getPassword());
+        User user = new User(request.getUsername(), request.getFullname(), request.getEmail(),
+                passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
 
         return ResponseHandler.responseData(HttpStatus.CREATED.value(), "User Successfully Registered!", user);
