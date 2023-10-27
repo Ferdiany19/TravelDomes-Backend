@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.traveldomes.src.payloads.req.LoginRequest;
 import com.traveldomes.src.payloads.req.RegisterRequest;
 import com.traveldomes.src.services.user.UserService;
 
@@ -24,5 +25,10 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterRequest request,
             @RequestParam(value = "role", defaultValue = "") String role) {
         return userService.registerUserService(request, role);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody @Valid LoginRequest request) {
+        return userService.loginUserService(request);
     }
 }

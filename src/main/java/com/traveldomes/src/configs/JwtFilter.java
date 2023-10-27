@@ -60,17 +60,6 @@ public class JwtFilter extends OncePerRequestFilter {
     response.setHeader("Access-Control-Allow-Origin", "*"); // set url FEnya atau clientnya, * bisa diakses semua client
     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
-    // if (request.getMethod().equals("OPTIONS")) {
-    // // For preflight requests, return a 200 OK status
-    // response.setStatus(HttpServletResponse.SC_OK);
-    // // filterChain.doFilter(request, response);
-    // return;
-    // }
-    // if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-    // response.setStatus(200);
-    // } else {
-    // filterChain.doFilter(request, response);
-    // }
     filterChain.doFilter(request, response);
   }
 
