@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User(request.getUsername(), request.getFullname(), request.getEmail(),
                 passwordEncoder.encode(request.getPassword()));
+        user.setRoles(roles);
         userRepository.save(user);
 
         return ResponseHandler.responseData(HttpStatus.CREATED.value(), "User Successfully Registered!", user);
